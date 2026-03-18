@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Hub Scolastico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --white: #ffffff;
+            --text: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background: var(--light);
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .header-btn {
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.6rem 1.4rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .header-btn:hover {
+            background: #2980b9;
+            transform: scale(1.04);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, #34495e 60%, #2980b9 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            color: var(--white);
+        }
+
+        .hero-badge {
+            background: rgba(52, 152, 219, 0.25);
+            border: 1px solid var(--accent);
+            color: #aad4f5;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 620px;
+            line-height: 1.8;
+            color: #bdc3c7;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            background: var(--accent);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .hero-cta:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* ── PROBLEMA / SOLUZIONE ── */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        /* ── FEATURES GRID ── */
+        .features-bg {
+            background: var(--white);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .card {
+            background: var(--light);
+            border-left: 4px solid var(--accent);
+            border-radius: 10px;
+            padding: 1.8rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* ── OBIETTIVI ── */
+        .goals-bg {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .goals-bg .section-title {
+            color: var(--white);
+        }
+
+        .goals-bg .section-sub {
+            color: #bdc3c7;
+        }
+
+        .goals-list {
+            list-style: none;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .goals-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            line-height: 1.6;
+        }
+
+        .goals-list li span.icon {
+            color: var(--accent);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* ── CTA FINALE ── */
+        .cta-section {
+            background: var(--accent);
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            opacity: 0.9;
+        }
+
+        .cta-login-btn {
+            background: var(--white);
+            color: var(--accent);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #1a252f;
+            color: #95a5a6;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .logo { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER fisso con link login -->
+    <header>
+        <div class="logo">Digital<span>Hub</span> scolastico</div>
+        <a href="login.html" class="header-btn">Accedi →</a>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge">Progetto Studentesco · Open Source</div>
+        <h1>La mia scuola,<br><span>finalmente digitale.</span></h1>
+        <p>
+            Una piattaforma interna per migliorare ogni aspetto della vita scolastica:
+            presenze, orari, comunicazioni, spazi e servizi. Tutto in un unico posto, accessibile da tutti.
+        </p>
+        <a href="login.html" class="hero-cta">Accedi alla Piattaforma</a>
+    </section>
+
+    <!-- FUNZIONALITÀ -->
+    <section class="section features-bg">
+        <div class="section-inner">
+            <h2 class="section-title">Cosa puoi fare</h2>
+            <p class="section-sub">Tutti i moduli pensati per studenti, docenti e personale.</p>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🪪</div>
+                    <h3>Tessera Identificativa NFC</h3>
+                    <p>Entrate e uscite registrate automaticamente con tessera NFC o QR code. Storico sempre disponibile.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🗺️</div>
+                    <h3>Mappa Interattiva</h3>
+                    <p>Mappa multi-piano della scuola: aule, laboratori, bagni, palestra, aree esterne e parcheggio.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📅</div>
+                    <h3>Orario & Calendario</h3>
+                    <p>Orario completo ora per ora, per sapere sempre dove si trova una classe. Calendario personale per compiti e interrogazioni.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚗</div>
+                    <h3>Gestione Parcheggio</h3>
+                    <p>Richiesta autorizzazione veicolo online, posti disponibili in tempo reale, accesso limitato.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">☕</div>
+                    <h3>Bar Digitale</h3>
+                    <p>Prenota e paga il bar con carta direttamente dalla piattaforma. Zero code, zero attese.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <h3>Chat per Materia</h3>
+                    <p>Comunicazioni dirette tra studenti e docenti, organizzate per ogni singola materia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OBIETTIVI -->
+    <section class="section goals-bg">
+        <div class="section-inner">
+            <h2 class="section-title">i nostri biettivi</h2>
+            <p class="section-sub">Trasparenza, efficienza e modernità per tutta la comunità scolastica.</p>
+            <ul class="goals-list">
+                <li><span class="icon">✔</span> Eliminare processi cartacei e sostituirli con flussi digitali veloci e sicuri.</li>
+                <li><span class="icon">✔</span> Rendere ogni studente consapevole di orari, spazi e comunicazioni in tempo reale.</li>
+                <li><span class="icon">✔</span> Essere un'evoluzione concreta del registro elettronico, non una sua copia.</li>
+                <li><span class="icon">✔</span> Garantire la massima trasparenza per studenti, docenti e famiglie.</li>
+                <li><span class="icon">✔</span> Progetto open source, sviluppato da studenti per gli studenti.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CTA FINALE -->
+    <section class="cta-section">
+        <h2>Pronto ad entrare?</h2>
+        <p>Accedi con le tue credenziali scolastiche o registrati se è il tuo primo accesso.</p>
+        <a href="login.html" class="cta-login-btn">Vai al Login</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Progetto di digitalizzazione scolastica · Sviluppato da uno studente · 
+        <a href="https://github.com/DeMaio-27/school-digital-hub" target="_blank">GitHub</a></p>
+    </footer>
+
+</body>
+</html>
