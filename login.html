@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accedi - Digital Hub Scolastico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --white: #ffffff;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #34495e 60%, #2980b9 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── HEADER ── */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(8px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .back-btn {
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover { color: var(--white); }
+
+        /* ── CONTENITORE CENTRALE ── */
+        .page-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6rem 1rem 2rem;
+        }
+
+        .card-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 440px;
+            overflow: hidden;
+        }
+
+        /* ── TABS LOGIN / REGISTRAZIONE ── */
+        .tabs {
+            display: flex;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: var(--light);
+            color: #7f8c8d;
+            border: none;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .tab.active {
+            background: var(--white);
+            color: var(--primary);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        /* ── FORM ── */
+        .form-body {
+            padding: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .form-subtitle {
+            font-size: 0.85rem;
+            color: #95a5a6;
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 2px solid #dde1e7;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--primary);
+            background: #f8f9fa;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52,152,219,0.15);
+            background: var(--white);
+        }
+
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .role-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-top: 0.4rem;
+        }
+
+        .role-option {
+            border: 2px solid #dde1e7;
+            border-radius: 8px;
+            padding: 0.7rem;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #7f8c8d;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .role-option:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .role-option.selected {
+            border-color: var(--accent);
+            background: rgba(52,152,219,0.08);
+            color: var(--accent);
+        }
+
+        .role-option .role-icon {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .forgot {
+            text-align: right;
+            margin-top: -0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .forgot a {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .forgot a:hover { text-decoration: underline; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 1.2rem 0;
+            color: #bdc3c7;
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #dde1e7;
+        }
+
+        .switch-msg {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 1.2rem;
+        }
+
+        .switch-msg a {
+            color: var(--accent);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .switch-msg a:hover { text-decoration: underline; }
+
+        /* ── PANNELLO NASCOSTO ── */
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+
+        @media (max-width: 480px) {
+            .row-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Digital<span>Hub</span> Scolastico</a>
+        <a href="index.html" class="back-btn">← Torna alla Home</a>
+    </header>
+
+    <div class="page-wrapper">
+        <div class="card-container">
+
+            <!-- TABS -->
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('login')">Accedi</button>
+                <button class="tab" onclick="switchTab('register')">Registrati</button>
+            </div>
+
+            <!-- PANNELLO LOGIN -->
+            <div class="form-body panel active" id="panel-login">
+                <div class="form-title">Bentornato</div>
+                <div class="form-subtitle">Inserisci le tue credenziali scolastiche</div>
+
+                <form action="dashboard.php" method="POST">
+                    <div class="form-group">
+                        <label for="email-login">Email scolastica</label>
+                        <input type="email" id="email-login" name="email" placeholder="nome.cognome@scuola.it" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password-login">Password</label>
+                        <input type="password" id="password-login" name="password" placeholder="••••••••" required>
+                    </div>
+                    <div class="forgot"><a href="#">Password dimenticata?</a></div>
+                    <button type="submit" class="submit-btn">Entra →</button>
+                </form>
+
+                <p class="switch-msg">Non hai un account? <a onclick="switchTab('register')">Registrati</a></p>
+            </div>
+
+            <!-- PANNELLO REGISTRAZIONE -->
+            <div class="form-body panel" id="panel-register">
+                <div class="form-title">Crea Account</div>
+                <div class="form-subtitle">Registrati con i tuoi dati scolastici</div>
+
+                <form action="register.php" method="POST">
+                    <div class="form-group">
+                        <label>Sei un…</label>
+                        <div class="role-selector">
+                            <div class="role-option selected" onclick="selectRole(this, 'studente')">
+                                <span class="role-icon">🎒</span> Studente
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'docente')">
+                                <span class="role-icon">📚</span> Docente
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'personale')">
+                                <span class="role-icon">🏫</span> Personale ATA
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'genitore')">
+                                <span class="role-icon">👨‍👩‍👧</span> Genitore
+                            </div>
+                        </div>
+                        <input type="hidden" name="ruolo" id="ruolo-input" value="studente">
+                    </div>
+
+                    <div class="row-2">
+                        <div class="form-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" name="nome" placeholder="Federico" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cognome">Cognome</label>
+                            <input type="text" id="cognome" name="cognome" placeholder="De Maio" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email-reg">Email scolastica</label>
+                        <input type="email" id="email-reg" name="email" placeholder="nome.cognome@scuola.it" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="codice">Codice Fiscale / Matricola</label>
+                        <input type="text" id="codice" name="codice" placeholder="Es. DMAFRC08..." required>
+                    </div>
+
+                    <div class="row-2">
+                        <div class="form-group">
+                            <label for="password-reg">Password</label>
+                            <input type="password" id="password-reg" name="password" placeholder="••••••••" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="conferma">Conferma</label>
+                            <input type="password" id="conferma" name="conferma" placeholder="••••••••" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Crea Account →</button>
+                </form>
+
+                <p class="switch-msg">Hai già un account? <a onclick="switchTab('login')">Accedi</a></p>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>Digital Hub Scolastico · <a href="https://github.com/DeMaio-27/school-digital-hub" target="_blank">GitHub</a></p>
+    </footer>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach((t, i) => {
+                t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
+            });
+            document.getElementById('panel-login').classList.toggle('active', tab === 'login');
+            document.getElementById('panel-register').classList.toggle('active', tab === 'register');
+        }
+
+        function selectRole(el, role) {
+            document.querySelectorAll('.role-option').forEach(r => r.classList.remove('selected'));
+            el.classList.add('selected');
+            document.getElementById('ruolo-input').value = role;
+        }
+    </script>
+
+</body>
+</html>
